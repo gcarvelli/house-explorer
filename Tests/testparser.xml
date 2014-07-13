@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Data>
+	<Program>House Explorer</Program>
+	<Version>1.0</Version>
+	<Rooms>
+		<Room id="BOTTOM_OF_DRIVEWAY">
+			<Name>Bottom of Driveway</Name>
+			<Description>
+				You are standing at the bottom of a driveway. There is a mid-sized ranch house to the north. The walls are made of brick with white sidings. There is a large front yard with some trees and bushes.
+			</Description>
+			<Move command="North" destination="TOP_OF_DRIVEWAY"/>
+		</Room>
+		<Room id="TOP_OF_DRIVEWAY">
+			<Name>Top of Driveway</Name>
+			<Description>
+				You are now directly in front of the house. The driveway is full of cracks and the house looks abandoned. There is a path to the backyard to the north, as well as a mailbox next to the front door. A basketball sits dejectedly on the side of the driveway.
+			</Description>
+			<Move command="South" destination="BOTTOM_OF_DRIVEWAY"/>
+			<Item name="basketball" canPickup="true">
+				<Description>It is round and orange with bumps all over.</Description>
+			</Item>
+			<Item name="mailbox" canPickup="false">
+				<Description>The mailbox is locked.</Description>
+			</Item>
+		</Room>
+	</Rooms>
+</Data>
