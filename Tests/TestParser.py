@@ -26,8 +26,8 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
+    # this path needs to be appended here because setUp is run from the base directory
     sys.path.append(os.getcwd())
-    print(os.getcwd())
     Parser.loadFile("testparser.xml")
     unittest.main()
 

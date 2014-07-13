@@ -19,3 +19,9 @@ class Item():
         self.description = description
         self.canPickup = canPickup
 
+class Player():
+    __slots__=('name','inventory')
+    
+    def __init__(self, name):
+        self.name=name
+        self.inventory = {}
