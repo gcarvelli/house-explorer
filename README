@@ -1,7 +1,7 @@
 Development for this game is in its early stages. If you have any feedback or
 ideas of any kind, please send them to grc5969@rit.edu.
 
-House_Explorer Version: 0.1
+House_Explorer Version: 0.2
 Python Version: 3.3
 OS: Windows 7
 IDE: Aptana Studio 3 w/ PyDev
@@ -15,9 +15,7 @@ The gamedata.xml file in the root directory is an example of what the Engine
 will read in. Feel free to customize to your heart's content.
 
 
-This Version: 0.1
-	NOTE: The game doesn't work yet! This initial commit is just the framework: XML
-parsing and some unit tests.
+This version:
 	How about a complete re-write? After letting House_Explorer stagnate for some time,
 I decided to scrap the complicated code that I had already written and go about 
 this in a completely different manner. 
