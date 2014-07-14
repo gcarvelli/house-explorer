@@ -7,13 +7,19 @@ def runEngine():
     # get the map
     roomDict = Parser.getRooms()
     global currentRoom
-    currentRoom = Parser.getStartingRoom()
+    currentRoom = roomDict[Parser.getStartingRoom()]
     
     lookAround()
+    
     while(True):
         action = input().strip(' ')
         if(action.lower() == "look"): 
             lookAround()
+        elif(action.lower() in currentRoom.moves):
+            currentRoom = roomDict[currentRoom.moves[action]]
+            lookAround()
+        else:
+            print("Command not recognized")
 
 def lookAround():
     clear()

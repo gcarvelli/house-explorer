@@ -31,15 +31,16 @@ def getRooms():
     for room in root.find("Rooms"):
         id = room.attrib["id"]
         name = room.find("Name").text
-        description = room.find("Description").text
+        description = room.find("Description").text.strip()
         moves = {}
-        for move in root.findall("Move"):
-            moves[move.attrib["command"]] = move.attrib["destination"]
+        for move in room.findall("Move"):
+            moves[move.attrib["command"].lower()] = move.attrib["destination"]
         items = []
-        for item in root.findall("Item"):
-            items.append(Item(item.attrib["name"], item.find("Description").text.strip("\n \t"), item.attrib["canPickup"].lower() == "true")) # hacky
+        for item in room.findall("Item"):
+            items.append(Item(item.attrib["name"], item.find("Description").text.strip(), item.attrib["canPickup"].lower() == "true")) # hacky
         
         roomDict[id] = Room(id, name, description, moves, items)
+    
     return roomDict
 
 """
@@ -47,21 +48,9 @@ Returns the starting room.
 """
 def getStartingRoom():
     roomDict = {}
-    for room in root.find("Rooms"):
-        id = room.attrib["id"]
-        name = room.find("Name").text
-        description = room.find("Description").text.strip()
-        moves = {}
-        for move in root.findall("Move"):
-            moves[move.attrib["command"]] = move.attrib["destination"]
-        items = []
-        for item in root.findall("Item"):
-            items.append(Item(item.attrib["name"], item.find("Description").text.strip("\n \t"), item.attrib["canPickup"].lower() == "true")) # hacky
-        
-        roomDict[id] = Room(id, name, description, moves, items)
-        
+    for room in root.find("Rooms"):        
         if("startRoom" in room.attrib.keys() and room.attrib["startRoom"].lower() == "true"):
-            return roomDict[id]
+            return room.attrib["id"]
 """
 Returns a string of each room's name and description. For debugging use only.
 """
