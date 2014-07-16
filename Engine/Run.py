@@ -12,11 +12,25 @@ def runEngine():
     lookAround()
     
     while(True):
-        action = input().strip(' ')
-        if(action.lower() == "look"): 
-            lookAround()
-        elif(action.lower() in currentRoom.moves):
-            currentRoom = roomDict[currentRoom.moves[action]]
+        action = input().strip(' ').split(' ')
+        
+        if(len(action) == 0):
+            continue
+        
+        if(action[0].lower() == "look"): 
+            if(len(action) > 1 and action[1].lower() == "at"):
+                if(len(action) == 2):
+                    wrap("Look at what?")
+                else:
+                    item = " ".join(action[2:])
+                    if(item in currentRoom.items):
+                        wrap(currentRoom.items[item].description)
+                    else:
+                        wrap("There isn't one of those around right now.")
+            else:
+                lookAround()
+        elif(action[0].lower() in currentRoom.moves):
+            currentRoom = roomDict[currentRoom.moves[action[0]]]
             lookAround()
         else:
             print("Command not recognized")

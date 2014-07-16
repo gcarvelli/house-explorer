@@ -6,9 +6,12 @@
 		<Room id="BOTTOM_OF_DRIVEWAY" startRoom="true">
 			<Name>Bottom of Driveway</Name>
 			<Description>
-				You are standing at the bottom of a driveway. There is a mid-sized ranch house to the north. The walls are made of brick with white sidings. There is a large front yard with some trees and bushes.
+				You are standing at the bottom of a driveway. There is a mid-sized ranch house to the north, with a large front yard and some trees and bushes.
 			</Description>
 			<Move command="North" destination="TOP_OF_DRIVEWAY"/>
+			<Item name="house" canPickup="false">
+				<Description>The house has brick walls with white sidings. The plants are thriving and the windows clean, but there is no sign of anyone living here.</Description>
+			</Item>
 		</Room>
 		<Room id="TOP_OF_DRIVEWAY">
 			<Name>Top of Driveway</Name>

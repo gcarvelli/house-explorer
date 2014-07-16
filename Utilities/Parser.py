@@ -35,9 +35,9 @@ def getRooms():
         moves = {}
         for move in room.findall("Move"):
             moves[move.attrib["command"].lower()] = move.attrib["destination"]
-        items = []
+        items = {}
         for item in room.findall("Item"):
-            items.append(Item(item.attrib["name"], item.find("Description").text.strip(), item.attrib["canPickup"].lower() == "true")) # hacky
+            items[item.attrib["name"].lower()] = Item(item.attrib["name"], item.find("Description").text.strip(), item.attrib["canPickup"].lower() == "true") # hacky
         
         roomDict[id] = Room(id, name, description, moves, items)
     
