@@ -2,6 +2,14 @@
 <Data>
 	<Program>House Explorer</Program>
 	<Version>1.0</Version>
+	<Player>
+		<Name>Steve</Name>
+		<Inventory>
+			<Item name="lockpick" canPickup="true">
+				<Description>This is a standard lockpick.</Description>
+			</Item>
+		</Inventory>
+	</Player>
 	<Rooms>
 		<Room id="BOTTOM_OF_DRIVEWAY" startRoom="true">
 			<Name>Bottom of Driveway</Name>
@@ -11,6 +19,7 @@
 			<Move command="North" destination="TOP_OF_DRIVEWAY"/>
 			<Item name="house" canPickup="false">
 				<Description>The house has brick walls with white sidings. The plants are thriving and the windows clean, but there is no sign of anyone living here.</Description>
+				<OnPickupFail>It is a house. You cannot pick up the house.</OnPickupFail>
 			</Item>
 		</Room>
 		<Room id="TOP_OF_DRIVEWAY">
@@ -24,6 +33,7 @@
 			</Item>
 			<Item name="mailbox" canPickup="false">
 				<Description>The mailbox is locked.</Description>
+				<OnPickupFail>Unfortunately, the mailbox is cemented into the ground, and you cannot lift it.</OnPickupFail>
 			</Item>
 		</Room>
 	</Rooms>
