@@ -1,6 +1,6 @@
 # https://docs.python.org/2/library/xml.etree.elementtree.html
 import xml.etree.ElementTree as ET
-from Engine.Models import Player, Item, Room
+from Engine.Models import *
 
 global gameData
 global config
@@ -104,6 +104,24 @@ def getItems(node):
             item.onPickupFail = itemNode.find("OnPickupFail").text
         if(itemNode.find("RoomDescriptionAddition") != None):
             item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text
+        item.actions = []
+        for actionNode in itemNode.findall("Action"):
+            action = Action()
+            action.performer = actionNode.attrib["performer"]
+            action.onSuccess = ""
+            if(actionNode.find("OnSuccess") != None):
+                action.onSuccess = actionNode.find("OnSuccess").text.strip()
+            action.descriptionChange = ""
+            if(actionNode.find("DescriptionChange") != None):
+                action.descriptionChange = actionNode.find("DescriptionChange").text.strip()
+            action.itemsToAdd = []
+            if(actionNode.find("AddItem") != None):
+                action.itemsToAdd = getItems(actionNode.find("AddItem"))
+            action.itemsToRemove = []
+            for itemToRemove in actionNode.findall("RemoveItem"):
+                action.itemsToRemove.append(itemToRemove.attrib["name"])
+            item.actions.append(action)
+                
         items[item.name] = item
     return items
 
@@ -167,6 +185,5 @@ Returns the action with the predicate removed.
 def removePredicate(action):
     predicate = getPredicate(action)
     return action[len(predicate):].strip()
-
 
 

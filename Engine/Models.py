@@ -19,18 +19,34 @@ class Room():
         
 class Item():
     
-    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition')
+    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition', 'actions')
     
-    def __init__(self, name="", description="", canPickup=False, onPickupFail="", roomDescriptionAddition=""):
+    def __init__(self, name="", description="", canPickup=False, onPickupFail="", roomDescriptionAddition="", actions=[]):
         self.name = name
         self.description = description
         self.canPickup = canPickup
         self.onPickupFail = onPickupFail
         self.roomDescriptionAddition = roomDescriptionAddition
+        self.actions = actions
 
 class Player():
-    __slots__=('name','items')
+    __slots__ = ('name','items')
     
     def __init__(self, name="", items = {}):
-        self.name=name
-        self.items = {}
+        self.name = name
+        self.items = items
+
+class Action():
+    
+    __slots__ = ('performer', 'onSuccess', 'descriptionChange', 'itemsToAdd', 'itemsToRemove')
+
+    def __init__(self, performer="", onSuccess="", descriptionChange="", itemsToAdd=[], itemsToRemove=[]):
+        self.performer = performer
+        self.onSuccess = onSuccess
+        self.descriptionChange = descriptionChange
+        self.itemsToAdd = itemsToAdd
+        self.itemsToRemove = itemsToRemove
+
+    
+
+        

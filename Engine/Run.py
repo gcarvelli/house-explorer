@@ -47,6 +47,39 @@ def runEngine():
                         wrap("That cannot be picked up.")
             else:
                 wrap("There isn't one of those around right now.")
+        elif(keyword == "use"):
+            if(object == ""):
+                wrap("Use what on what?")
+                continue
+            items = object.split(" on ")
+            performer = items[0]
+            reciever = None
+            if(len(items) > 1):
+                reciever = items[1]
+            if(reciever != None):
+                if(performer in player.items):
+                    thisAction = None
+                    for candidate in currentRoom.items[reciever].actions:
+                        if(candidate.performer == performer):
+                            thisAction = candidate
+                            break
+                    if(thisAction != None):
+                        # print success message
+                        wrap(thisAction.onSuccess)
+                        # change description
+                        currentRoom.items[reciever].description = thisAction.descriptionChange
+                        # add items
+                        for itemToAdd in thisAction.itemsToAdd:
+                            player.items[itemToAdd] = thisAction.itemsToAdd[itemToAdd]
+                        # remove items
+                        for itemToRemove in thisAction.itemsToRemove:
+                            del player.items[itemToRemove]
+                    else:
+                        wrap("That's not possible.")
+                else:
+                    wrap("You don't have a " + items[0] + ".")
+            else:
+                wrap("You can't use an item by itself, yet.")
         elif(keyword == "inventory"):
             if(len(player.items) == 0):
                 wrap("You have nothing in your inventory.")

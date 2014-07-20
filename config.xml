@@ -5,5 +5,6 @@
 		<Alias keyword="look at">look at</Alias>
 		<Alias keyword="take">take,pick up,pickup,grab</Alias>
 		<Alias keyword="inventory">inventory,items</Alias>
+		<Alias keyword="use">use</Alias>
 	</Aliases>
 </Data>

@@ -1,30 +1,28 @@
 Development for this game is in its early stages. If you have any feedback or
 ideas of any kind, please send them to grc5969@rit.edu.
 
-House_Explorer Version: 0.2
+House_Explorer Version: 0.3
 Python Version: 3.3
 OS: Windows 7
-IDE: Aptana Studio 3 w/ PyDev
+IDE: eclipse w/ PyDev
 
-
-Thanks for taking a look at my game!
 
 House Explorer is a Python-based text adventure game engine. 
 
 The gamedata.xml file in the root directory is an example of what the Engine 
 will read in. Feel free to customize to your heart's content.
 
+Commands to try:
+	walk north and type "use lockpick on mailbox"
+	type "inventory" to see your items
 
 This version:
-	How about a complete re-write? After letting House_Explorer stagnate for some time,
-I decided to scrap the complicated code that I had already written and go about 
-this in a completely different manner. 
-	Instead of hard-coding locations and events, everything is now read in from a XML 
-configuration file. This way the inner workings of the program don't need to be visible 
-to create the game, making this project a lot more reusable and testable.
-	I also redid the structure of the project itself. Instead of trying to create my own
-standards, I decided to adopt the Package/Module layout that most every Python package
-uses.
+		A bunch of new features were added. The player can now pick up items
+	in the environment and carry them around in their inventory. Items can
+	also be used on other items in the inventory, but that feature is still in
+	its fledgling stages. Using an item on an environment item can change
+	the item's description, and add and remove items from the player's
+	inventory.
 
 
 To run:
