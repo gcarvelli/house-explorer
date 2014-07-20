@@ -2,33 +2,58 @@
 import xml.etree.ElementTree as ET
 from Engine.Models import Player, Item, Room
 
-global tree
-global root
-tree = ET.parse("gamedata.xml")
-root = tree.getroot()
+global gameData
+global config
+global keywords
+gameDate = None
+config = None
+keywords = {}
 
-def loadFile(file):
+#################################
+# XML Loading
+#################################
+"""
+Allows tests to specify special test configurations.
+"""
+def loadGameDataFile(file):
     tree = ET.parse(file)
-    root = tree.getroot()
+    global gameData
+    gameData = tree.getroot()
+    
+loadGameDataFile("gamedata.xml")
+    
+"""
+Allows tests to specify special test configurations.
+"""
+def loadConfigFile(file):
+    tree = ET.parse(file)
+    global config
+    config = tree.getroot()
+    
+loadConfigFile("config.xml")
+
+#################################
+# Map
+#################################
 
 """
 Returns the name of the program, as defined in the gamedata file.
 """
 def getProgramName():
-    return root[0].text
+    return gameData[0].text
 
 """
 Returns the version of the program, as defined in the gamedata file.
 """
 def getProgramVersion():
-    return root[1].text
+    return gameData[1].text
 
 """
 Returns a constructed Player object
 """
 def getPlayer():
     player = Player()
-    playerNode = root.find("Player")
+    playerNode = gameData.find("Player")
     player.name = playerNode.find("Name").text
     player.items = getItems(playerNode.find("Inventory"))
     return player
@@ -38,7 +63,7 @@ Returns a dictionary of each room's id mapped to its object
 """
 def getRooms():
     roomDict = {}
-    for room in root.find("Rooms"):
+    for room in gameData.find("Rooms"):
         id = room.attrib["id"]
         name = room.find("Name").text
         description = room.find("Description").text.strip()
@@ -55,7 +80,13 @@ Returns a dictionary of each Move's keyword mapped to its destination's id
 def getMoves(node):
     moves = {}
     for move in node.findall("Move"):
-        moves[move.attrib["command"].lower()] = move.attrib["destination"]
+        command = move.attrib["command"].lower()
+        moves[command] = move.attrib["destination"]
+        
+        # the moves need to be added to the keywords dictionary
+        if(not command in keywords):
+            keywords[command] = "move"
+
     return moves
 
 """
@@ -68,9 +99,11 @@ def getItems(node):
         item.name = itemNode.attrib["name"]
         item.description = itemNode.find("Description").text
         item.canPickup = itemNode.attrib["canPickup"].lower() == "true" # hacky but works
-        # onPickupFail is optional. If it isn't specified a generic message will be displayed.
+        # onPickupFail and is optional. If they aren't specified a generic message will be displayed.
         if(itemNode.find("OnPickupFail") != None):
             item.onPickupFail = itemNode.find("OnPickupFail").text
+        if(itemNode.find("RoomDescriptionAddition") != None):
+            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text
         items[item.name] = item
     return items
 
@@ -79,17 +112,61 @@ Returns the starting room.
 """
 def getStartingRoom():
     roomDict = {}
-    for room in root.find("Rooms"):        
+    for room in gameData.find("Rooms"):        
         if("startRoom" in room.attrib.keys() and room.attrib["startRoom"].lower() == "true"):
             return room.attrib["id"]
 
+#################################
+# Keywords
+#################################
+
+keywords = {}
+
 """
-Returns a string of each room's name and description. For debugging use only.
+Returns a dict of each predicate mapped to its keyword.
 """
-def getRoomsString():
-    # find the rooms tag
-    rooms = root.find("Rooms")
-    s = ""
-    for room in rooms:
-        s += room.find("Name").text + "\n"
-    return s
+def loadKeywords():
+    global keywords
+    for alias in config.find("Aliases").findall("Alias"):
+        keyword = alias.attrib["keyword"]
+        lst = alias.text.split(',')
+        for predicate in lst:
+            keywords[predicate] = keyword
+
+loadKeywords()
+
+"""
+Returns the predicate of the action.
+"""
+def getPredicate(action):
+    # build a list of candidates and pick the longest one
+    candidates = []
+    for candidate in keywords:
+        if(action.startswith(candidate)):
+            candidates.append(candidate)
+    
+    longestCandidate = ""
+    for candidate in candidates:
+        if(len(candidate) > len(longestCandidate)):
+            longestCandidate = candidate
+    
+    return longestCandidate
+
+"""
+Returns the keyword that the action's actual predicate was mapped to.
+"""
+def getKeyword(action):
+    if(getPredicate(action) in keywords):
+        return keywords[getPredicate(action)]
+    else:
+        return ""
+
+"""
+Returns the action with the predicate removed.
+"""
+def removePredicate(action):
+    predicate = getPredicate(action)
+    return action[len(predicate):].strip()
+
+
+
