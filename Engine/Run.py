@@ -1,4 +1,5 @@
 import os
+import platform
 from Engine.Models import *
 from Utilities.TextControl import wrap
 from Utilities import Parser
@@ -102,6 +103,9 @@ def lookAround():
     
     
 def clear():
-    os.system('cls')
+    if(platform.system() == "windows"):
+        os.system('cls')
+    else:
+        os.system('clear')
     wrap(Parser.getProgramName())
     wrap('Version ' + Parser.getProgramVersion())
