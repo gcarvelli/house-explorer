@@ -1,14 +1,15 @@
 
 class Room():
     
-    __slots__ = ('id', 'name','description', 'moves', 'items')
+    __slots__ = ('id', 'name','description', 'moves', 'items', 'aliases')
 
-    def __init__(self, id="", name="", description="", moves={}, items={}):
+    def __init__(self, id="", name="", description="", moves={}, items={}, aliases={}):
         self.id = id
         self.name = name
         self.description = description
         self.moves = moves
         self.items = items
+        self.aliases = aliases
     
     def getDescription(self):
         ret = self.description
@@ -19,7 +20,7 @@ class Room():
         
 class Item():
     
-    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition', 'actions')
+    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition', 'actions', 'aliases')
     
     def __init__(self, name="", description="", canPickup=False, onPickupFail="", roomDescriptionAddition="", actions=[]):
         self.name = name

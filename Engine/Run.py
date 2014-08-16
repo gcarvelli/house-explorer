@@ -19,6 +19,10 @@ def runEngine():
     while(True):
         action = input().strip(' ')
         
+        # catch aliases before parsing
+        if(action in currentRoom.aliases):
+            action = currentRoom.aliases[action]
+        
         predicate = Parser.getPredicate(action)
         object = Parser.removePredicate(action)
         keyword = Parser.getKeyword(action)
@@ -26,7 +30,7 @@ def runEngine():
         if(len(action) == 0):
             continue
         
-        if(keyword == "look"):
+        elif(keyword == "look"):
             lookAround()
         elif(keyword == "look at"):
             if(object in currentRoom.items):

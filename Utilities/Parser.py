@@ -69,8 +69,9 @@ def getRooms():
         description = room.find("Description").text.strip()
         moves = getMoves(room)
         items = getItems(room)
+        aliases = getAliases(room)
         
-        roomDict[id] = Room(id, name, description, moves, items)
+        roomDict[id] = Room(id, name, description, moves, items, aliases)
     
     return roomDict
 
@@ -124,6 +125,15 @@ def getItems(node):
                 
         items[item.name] = item
     return items
+
+"""
+Returns a dictionary of each alias mapped to its command.
+"""
+def getAliases(node):
+    aliases = {}
+    for aliasNode in node.findall("Alias"):
+        aliases[aliasNode.attrib["keyword"]] = aliasNode.text
+    return aliases
 
 """
 Returns the starting room.

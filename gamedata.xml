@@ -60,6 +60,7 @@
 					<DescriptionChange>It' a standard, run-of-the-mill basketball hoop. You feel more attached to it now that you had a moment.</DescriptionChange>
 				</Action>
 			</Item>
+			<Alias keyword="shoot hoops">use basketball on basketball hoop</Alias>
 		</Room>
 	</Rooms>
 </Data>
