@@ -93,10 +93,13 @@ def runEngine():
                 for item in player.items:
                     wrap("    " + item)
         elif(keyword == "move"):
-            currentRoom = roomDict[currentRoom.moves[predicate]]
-            lookAround()
+            if(predicate in currentRoom.moves):
+                currentRoom = roomDict[currentRoom.moves[predicate]]
+                lookAround()
+            else:
+                wrap("You can't go that way.")
         else:
-            print("Command not recognized.")
+            wrap("Command not recognized.")
 
 def lookAround():
     clear()
