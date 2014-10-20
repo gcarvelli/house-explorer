@@ -3,6 +3,11 @@ import os
 from Utilities import Parser
 from Engine.Run import runEngine
 
+# Do a python version check (greater than 3.0.0)
+if(sys.hexversion < 0x03000000):
+	print("House Explorer requires Python 3.0 or greater.")
+	sys.exit(1)
+
 sys.path.append(os.getcwd())
 
 if(__name__ == "__main__"):
