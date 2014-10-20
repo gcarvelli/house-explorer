@@ -1,7 +1,7 @@
 import os
 import platform
 from Engine.Models import *
-from Utilities.TextControl import wrap
+from Utilities.TextControl import wrap, getInput
 from Utilities import Parser
 
 def runEngine():
@@ -17,7 +17,7 @@ def runEngine():
     lookAround()
     
     while(True):
-        action = input().strip(' ')
+        action = getInput().strip(' ')
         
         # catch aliases before parsing
         if(action in currentRoom.aliases):
