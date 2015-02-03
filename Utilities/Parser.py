@@ -3,17 +3,17 @@ import xml.etree.ElementTree as ET
 from Engine.Models import *
 
 global gameData
-global config
+global aliases
 global keywords
 gameDate = None
-config = None
+aliases = None
 keywords = {}
 
 #################################
 # XML Loading
 #################################
 """
-Allows tests to specify special test configurations.
+Loads in the game's configuration.
 """
 def loadGameDataFile(file):
     tree = ET.parse(file)
@@ -23,14 +23,14 @@ def loadGameDataFile(file):
 loadGameDataFile("gamedata.xml")
     
 """
-Allows tests to specify special test configurations.
+Loads in the program's aliases (keywords).
 """
-def loadConfigFile(file):
+def loadAliasFile(file):
     tree = ET.parse(file)
-    global config
-    config = tree.getroot()
+    global aliases
+    aliases = tree.getroot()
     
-loadConfigFile("config.xml")
+loadAliasFile("aliases.xml")
 
 #################################
 # Map
@@ -155,7 +155,7 @@ Returns a dict of each predicate mapped to its keyword.
 """
 def loadKeywords():
     global keywords
-    for alias in config.find("Aliases").findall("Alias"):
+    for alias in aliases.findall("Alias"):
         keyword = alias.attrib["keyword"]
         lst = alias.text.split(',')
         for predicate in lst:

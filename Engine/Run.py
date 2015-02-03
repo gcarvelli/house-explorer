@@ -1,7 +1,7 @@
 import os
 import platform
 from Engine.Models import *
-from Utilities.TextControl import wrap, getInput
+from Utilities.TextControl import wrap
 from Utilities import Parser
 
 def runEngine():
@@ -17,7 +17,7 @@ def runEngine():
     lookAround()
     
     while(True):
-        action = getInput().strip(' ')
+        action = input().strip(' ')
         
         # catch aliases before parsing
         if(action in currentRoom.aliases):
@@ -110,7 +110,7 @@ def lookAround():
     
     
 def clear():
-    if(platform.system() == "windows"):
+    if(platform.system() == "Windows"):
         os.system('cls')
     else:
         os.system('clear')

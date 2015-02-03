@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # this path needs to be appended here because setUp is run from the base directory
     sys.path.append(os.getcwd())
     Parser.loadGameDataFile("gamedata.xml")
-    Parser.loadConfigFile("config.xml")
+    Parser.loadAliasFile("aliases.xml")
     Parser.loadKeywords()
     unittest.main()
 

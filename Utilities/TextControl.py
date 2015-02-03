@@ -1,7 +1,7 @@
 import textwrap
 import sys
 from Utilities.Getch import Getch
-import curses
+#import curses
 
 """
 Because Python's built-in print() function doesn't natively wrap, this function
@@ -19,7 +19,7 @@ http://stackoverflow.com/questions/510357/python-read-a-single-character-from-th
 
 Emulates python's input() statement, but handles command history under the hood.
 """
-def getInput():
+"""def getInput():
 	string = ""
 	previousChars = []
 
@@ -63,3 +63,4 @@ def clearLine(lengthOfLine):
 	sys.stdout.write(chr(13)) # carriage return
 
 	sys.stdout.flush()
+"""
