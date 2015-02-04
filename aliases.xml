@@ -5,4 +5,5 @@
     <Alias keyword="take">take,pick up,pickup,grab,acquire</Alias>
     <Alias keyword="inventory">inventory,items,backpack</Alias>
     <Alias keyword="use">use</Alias>
+    <Alias keyword="quit">quit</Alias>
 </Aliases>

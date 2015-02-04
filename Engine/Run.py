@@ -84,7 +84,7 @@ def runEngine():
                 else:
                     wrap("You don't have a " + items[0] + ".")
             else:
-                wrap("You can't use an item by itself, yet.")
+                wrap("There isn't one of those around.")
         elif(keyword == "inventory"):
             if(len(player.items) == 0):
                 wrap("You have nothing in your inventory.")
@@ -98,6 +98,12 @@ def runEngine():
                 lookAround()
             else:
                 wrap("You can't go that way.")
+        elif(keyword == "quit"):
+            print("Are you sure you want to quit? (y/n)")
+            decision = input()
+            if(decision in ['y','yes']):
+                print("Bye!")
+                break
         else:
             wrap("Command not recognized.")
 
