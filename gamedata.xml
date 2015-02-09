@@ -2,8 +2,6 @@
 <Data>
 	<Program>House Explorer</Program>
 	<Version>1.0</Version>
-	<Alias keyword="look">look around</Alias>
-	<Alias keyword="take">pick up</Alias>
 	<Player>
 		<Name>Steve</Name>
 		<Inventory>
