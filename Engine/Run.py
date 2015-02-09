@@ -52,6 +52,9 @@ def runEngine():
                         wrap("That cannot be picked up.")
             else:
                 wrap("There isn't one of those around right now.")
+        elif(action in currentRoom.actions):
+            actionObj = currentRoom.actions[action]
+            actionObj.execute(player, currentRoom, roomDict)
         elif(keyword == "use"):
             if(object == ""):
                 wrap("Use what on what?")
@@ -99,10 +102,10 @@ def runEngine():
             else:
                 wrap("You can't go that way.")
         elif(keyword == "quit"):
-            print("Are you sure you want to quit? (y/n)")
+            wrap("Are you sure you want to quit? (y/n)")
             decision = input()
             if(decision in ['y','yes']):
-                print("Bye!")
+                wrap("Bye!")
                 break
         else:
             wrap("Command not recognized.")

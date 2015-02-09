@@ -41,25 +41,32 @@
 			<Item name="mailbox" canPickup="false">
 				<Description>The mailbox is locked.</Description>
 				<OnPickupFail>Unfortunately, the mailbox is cemented into the ground, and you cannot lift it.</OnPickupFail>
-				<Action performer="lockpick">
-					<OnSuccess>After some awkward jimmying, you manage to open the mailbox. Unfortunately, your lockpick breaks in the process.</OnSuccess>
-					<RemoveItem name="lockpick" />
-					<AddItem>
-						<Item name="broken lockpick" canPickup="true">
-							<Description>A broken lockpick. You almost dropped it, but something made you hold on to it.</Description>
-						</Item>
-					</AddItem>
-					<DescriptionChange>The mailbox is open, but empty.</DescriptionChange>
-				</Action>
 			</Item>
 			<Item name="basketball hoop" canPickup="false">
 				<Description>It' a standard, run-of-the-mill basketball hoop.</Description>
 				<OnPickupFail>You seem to have forgotten your ladder, so you can't take the basketball hoop.</OnPickupFail>
-				<Action performer="basketball">
-					<OnSuccess>You shoot some hoops with the basketball.</OnSuccess>
-					<DescriptionChange>It' a standard, run-of-the-mill basketball hoop. You feel more attached to it now that you had a moment.</DescriptionChange>
-				</Action>
 			</Item>
+			<Action performer="lockpick" reciever="mailbox">
+				<Keyword>pick lock on mailbox</Keyword>
+				<Keyword>pick mailbox lock</Keyword>
+				<OnSuccess>Opening the mailbox reveals a leaflet. Unfortunately, your lockpick breaks in the process.</OnSuccess>
+				<RemoveFromInventory name="lockpick" />
+				<AddToInventory>
+					<Item name="broken lockpick" canPickup="true">
+						<Description>A broken lockpick. You almost dropped it, but something made you hold on to it.</Description>
+					</Item>
+				</AddToInventory>
+				<AddToRoom>
+					<Item name="leaflet" canPickup="true">
+						<Description>"Welcome to House Explorer! This is a silly little place where anything is possible."</Description>
+					</Item>
+				</AddToRoom>
+				<DescriptionChange>The mailbox is open, but empty.</DescriptionChange>
+			</Action>
+			<Action performer="basketball" reciever="basketball hoop">
+				<OnSuccess>You shoot some hoops with the basketball.</OnSuccess>
+				<DescriptionChange>It' a standard, run-of-the-mill basketball hoop. You feel more attached to it now that you had a moment.</DescriptionChange>
+			</Action>
 			<Alias keyword="shoot hoops">use basketball on basketball hoop</Alias>
 		</Room>
 	</Rooms>

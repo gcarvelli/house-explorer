@@ -70,8 +70,38 @@ def getRooms():
         moves = getMoves(room)
         items = getItems(room)
         aliases = getAliases(room)
-        
-        roomDict[id] = Room(id, name, description, moves, items, aliases)
+        actions = {}
+
+        for actionNode in room.findall("Action"):
+            action = Action()
+            action.performer = actionNode.attrib["performer"]
+            action.reciever = actionNode.attrib["reciever"]
+            action.onSuccess = ""
+            if(actionNode.find("OnSuccess") != None):
+                action.onSuccess = actionNode.find("OnSuccess").text.strip()
+                
+            action.descriptionChange = ""
+            if(actionNode.find("DescriptionChange") != None):
+                action.descriptionChange = actionNode.find("DescriptionChange").text.strip()
+
+            action.itemsToAdd = []
+            if(actionNode.find("AddToInventory") != None):
+                action.itemsToAdd = getItems(actionNode.find("AddToInventory"))
+
+            action.itemsToAddToRooms = {}
+            for node in actionNode.findall("AddToRoom"):
+                # when no room is defined the default is the current room
+                roomName = node.attrib['room'] if 'room' in node.attrib else id
+                action.itemsToAddToRooms[roomName] = getItems(node)
+                
+            action.itemsToRemove = []
+            for itemToRemove in actionNode.findall("RemoveItem"):
+                action.itemsToRemove.append(itemToRemove.attrib["name"])
+
+            for keyword in actionNode.findall("Keyword"):
+                actions[keyword.text.strip()] = action
+
+        roomDict[id] = Room(id, name, description, moves, items, aliases, actions)
     
     return roomDict
 
@@ -104,25 +134,7 @@ def getItems(node):
         if(itemNode.find("OnPickupFail") != None):
             item.onPickupFail = itemNode.find("OnPickupFail").text
         if(itemNode.find("RoomDescriptionAddition") != None):
-            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text
-        item.actions = []
-        for actionNode in itemNode.findall("Action"):
-            action = Action()
-            action.performer = actionNode.attrib["performer"]
-            action.onSuccess = ""
-            if(actionNode.find("OnSuccess") != None):
-                action.onSuccess = actionNode.find("OnSuccess").text.strip()
-            action.descriptionChange = ""
-            if(actionNode.find("DescriptionChange") != None):
-                action.descriptionChange = actionNode.find("DescriptionChange").text.strip()
-            action.itemsToAdd = []
-            if(actionNode.find("AddItem") != None):
-                action.itemsToAdd = getItems(actionNode.find("AddItem"))
-            action.itemsToRemove = []
-            for itemToRemove in actionNode.findall("RemoveItem"):
-                action.itemsToRemove.append(itemToRemove.attrib["name"])
-            item.actions.append(action)
-                
+            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text               
         items[item.name] = item
     return items
 
