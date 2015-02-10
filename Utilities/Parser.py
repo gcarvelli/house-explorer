@@ -107,8 +107,9 @@ def getRooms():
                 action.itemsToAddToRooms[roomName] = getItems(node)
                 
             action.itemsToRemove = []
-            for itemToRemove in actionNode.findall("RemoveItem"):
-                action.itemsToRemove.append(itemToRemove.attrib["id"])
+            for itemToRemove in actionNode.findall("RemoveFromInventory"):
+                action.itemsToRemove.append(itemToRemove.attrib["name"])
+
 
             for keyword in actionNode.findall("Keyword"):
                 actions[keyword.text.strip()] = action
