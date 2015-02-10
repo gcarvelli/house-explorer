@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Aliases>
-    <Alias keyword="look">look,look around</Alias>
+    <Alias keyword="look">look,look around,l</Alias>
     <Alias keyword="look at">look at,describe</Alias>
     <Alias keyword="take">take,pick up,pickup,grab,acquire</Alias>
-    <Alias keyword="inventory">inventory,items,backpack</Alias>
+    <Alias keyword="inventory">inventory,items,backpack,i</Alias>
     <Alias keyword="use">use</Alias>
-    <Alias keyword="quit">quit</Alias>
+    <Alias keyword="quit">quit,exit,q</Alias>
 </Aliases>
