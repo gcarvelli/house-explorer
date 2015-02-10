@@ -1,4 +1,5 @@
 from Utilities.TextControl import wrap
+import os
 
 class Room():
     
@@ -15,9 +16,10 @@ class Room():
     
     def getDescription(self):
         ret = self.description
+        ret += os.linesep
         for itemName in self.items:
             if(self.items[itemName].roomDescriptionAddition != ""):
-                ret += " " + self.items[itemName].roomDescriptionAddition
+                ret += os.linesep + self.items[itemName].roomDescriptionAddition
         return ret
         
 class Item():

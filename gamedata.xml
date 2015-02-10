@@ -5,9 +5,7 @@
 	<Player>
 		<Name>Steve</Name>
 		<Inventory>
-			<Item name="lockpick" canPickup="true">
-				<Description>This is a standard lockpick.</Description>
-			</Item>
+			<Item ref_id="lockpick" />
 		</Inventory>
 	</Player>
 	<Rooms>
@@ -17,10 +15,7 @@
 				You are standing at the bottom of a driveway. There is a mid-sized ranch house to the north, with a large front yard and some trees and bushes.
 			</Description>
 			<Move command="North" destination="TOP_OF_DRIVEWAY"/>
-			<Item name="house" canPickup="false">
-				<Description>The house has brick walls with white sidings. The plants are thriving and the windows clean, but there is no sign of anyone living here.</Description>
-				<OnPickupFail>It is a house. You cannot pick up the house.</OnPickupFail>
-			</Item>
+			<Item ref_id="house_far" />
 		</Room>
 		<Room id="TOP_OF_DRIVEWAY">
 			<Name>Top of Driveway</Name>
@@ -28,44 +23,29 @@
 				You are now directly in front of the house. The driveway is full of cracks and the house looks abandoned. There is a path to the backyard to the north, as well as a mailbox next to the front door. A basketball hoop is mounted on the house.
 			</Description>
 			<Move command="South" destination="BOTTOM_OF_DRIVEWAY"/>
-			<Item name="basketball" canPickup="true">
-				<Description>It is round and orange with bumps all over.</Description>
-				<RoomDescriptionAddition>A basketball sits dejectedly on the side of the driveway.</RoomDescriptionAddition>
-			</Item>
-			<Item name="house" canPickup="false">
-				<Description>Even up close, the house looks pristine.</Description>
-				<OnPickupFail>It is a house. You cannot pick up the house.</OnPickupFail>
-			</Item>
-			<Item name="mailbox" canPickup="false">
-				<Description>The mailbox is locked.</Description>
-				<OnPickupFail>Unfortunately, the mailbox is cemented into the ground, and you cannot lift it.</OnPickupFail>
-			</Item>
-			<Item name="basketball hoop" canPickup="false">
-				<Description>It' a standard, run-of-the-mill basketball hoop.</Description>
-				<OnPickupFail>You seem to have forgotten your ladder, so you can't take the basketball hoop.</OnPickupFail>
-			</Item>
+			<Item ref_id="basketball" />
+			<Item ref_id="house_near" />
+			<Item ref_id="mailbox" />
+			<Item ref_id="basketball_hoop" />
 			<Action performer="lockpick" reciever="mailbox">
 				<Keyword>pick lock on mailbox</Keyword>
 				<Keyword>pick mailbox lock</Keyword>
-				<OnSuccess>Opening the mailbox reveals a leaflet. Unfortunately, your lockpick breaks in the process.</OnSuccess>
+				<OnSuccess>The mailbox opens, revealing a leaflet. Your lockpick breaks in the process.</OnSuccess>
 				<RemoveFromInventory name="lockpick" />
 				<AddToInventory>
-					<Item name="broken lockpick" canPickup="true">
-						<Description>A broken lockpick. You almost dropped it, but something made you hold on to it.</Description>
-					</Item>
+					<Item ref_id="broken_lockpick" />
 				</AddToInventory>
 				<AddToRoom>
-					<Item name="leaflet" canPickup="true">
-						<Description>"Welcome to House Explorer! This is a silly little place where anything is possible."</Description>
-					</Item>
+					<Item ref_id="leaflet" />
 				</AddToRoom>
 				<DescriptionChange>The mailbox is open, but empty.</DescriptionChange>
 			</Action>
 			<Action performer="basketball" reciever="basketball hoop">
+				<Keyword>play basketball</Keyword>
+				<Keyword>shoot hoops</Keyword>
 				<OnSuccess>You shoot some hoops with the basketball.</OnSuccess>
 				<DescriptionChange>It' a standard, run-of-the-mill basketball hoop. You feel more attached to it now that you had a moment.</DescriptionChange>
 			</Action>
-			<Alias keyword="shoot hoops">use basketball on basketball hoop</Alias>
 		</Room>
 	</Rooms>
 </Data>

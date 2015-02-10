@@ -1,0 +1,32 @@
+<Items>
+    <Item name="lockpick" id="lockpick" canPickup="true">
+        <Description>This is a standard lockpick.</Description>
+    </Item>
+    <Item name="house" id="house_far" canPickup="false">
+        <Description>The house has brick walls with white sidings. The plants are thriving and the windows clean, but there is no sign of anyone living here.</Description>
+        <OnPickupFail>It is a house. You cannot pick up the house.</OnPickupFail>
+    </Item>
+    <Item name="basketball" id="basketball" canPickup="true">
+        <Description>It is round and orange with bumps all over.</Description>
+        <RoomDescriptionAddition>A basketball sits dejectedly on the side of the driveway.</RoomDescriptionAddition>
+    </Item>
+    <Item name="house" id="house_near" canPickup="false">
+        <Description>Even up close, the house looks pristine.</Description>
+        <OnPickupFail>It is a house. You cannot pick up the house.</OnPickupFail>
+    </Item>
+    <Item name="mailbox" id="mailbox" canPickup="false">
+        <Description>The mailbox is locked.</Description>
+        <OnPickupFail>Unfortunately, the mailbox is cemented into the ground, and you cannot lift it.</OnPickupFail>
+    </Item>
+    <Item name="basketball hoop" id="basketball_hoop" canPickup="false">
+        <Description>It' a standard, run-of-the-mill basketball hoop.</Description>
+        <OnPickupFail>You seem to have forgotten your ladder, so you can't take the basketball hoop.</OnPickupFail>
+    </Item>
+    <Item name="broken lockpick" id="broken_lockpick" canPickup="true">
+        <Description>A broken lockpick. You almost dropped it, but something made you hold on to it.</Description>
+    </Item>
+    <Item name="leaflet" id="leaflet" canPickup="true">
+        <Description>"Welcome to House Explorer! This is a silly little place where anything is possible."</Description>
+        <RoomDescriptionAddition>A leaflet is in the mailbox.</RoomDescriptionAddition>
+    </Item>
+</Items>

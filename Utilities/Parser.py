@@ -4,9 +4,11 @@ from Engine.Models import *
 
 global gameData
 global aliases
+global itemData
 global keywords
 gameDate = None
 aliases = None
+itemData = None
 keywords = {}
 
 #################################
@@ -31,6 +33,16 @@ def loadAliasFile(file):
     aliases = tree.getroot()
     
 loadAliasFile("aliases.xml")
+
+"""
+Loads in any items defined in the optional items.xml.
+"""
+def loadItemsFile(file):
+    tree = ET.parse(file)
+    global itemData
+    itemData = tree.getroot()
+
+loadItemsFile("items.xml")
 
 #################################
 # Map
@@ -96,7 +108,7 @@ def getRooms():
                 
             action.itemsToRemove = []
             for itemToRemove in actionNode.findall("RemoveItem"):
-                action.itemsToRemove.append(itemToRemove.attrib["name"])
+                action.itemsToRemove.append(itemToRemove.attrib["id"])
 
             for keyword in actionNode.findall("Keyword"):
                 actions[keyword.text.strip()] = action
@@ -126,10 +138,17 @@ Returns a dictionary of each Item's name mapped to its object
 def getItems(node):
     items = {}
     for itemNode in node.findall("Item"):
+        if "ref_id" in itemNode.attrib:
+            # the item is listed in the items file
+            for itemRefNode in itemData:
+                if itemRefNode.attrib["id"] == itemNode.attrib["ref_id"]:
+                    itemNode = itemRefNode
+                    break
+
         item = Item()
         item.name = itemNode.attrib["name"]
         item.description = itemNode.find("Description").text
-        item.canPickup = itemNode.attrib["canPickup"].lower() == "true" # hacky but works
+        item.canPickup = itemNode.attrib["canPickup"].lower() == "true"
         # onPickupFail and is optional. If they aren't specified a generic message will be displayed.
         if(itemNode.find("OnPickupFail") != None):
             item.onPickupFail = itemNode.find("OnPickupFail").text
