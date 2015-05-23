@@ -126,8 +126,14 @@ def lookAround():
     clear()
     print('\n')
     wrap(currentRoom.name)
-    wrap(currentRoom.getDescription())
-    print('\n')
+    # need to account for newlines so that wrap()
+    # doesn't break lines right in the middle
+    for line in currentRoom.getDescriptionList():
+        if(line.isspace()):
+            print(line)
+        else:
+            wrap(line)
+    print(os.linesep)
     
     
 def clear():

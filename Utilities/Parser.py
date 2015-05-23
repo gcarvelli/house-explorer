@@ -148,15 +148,15 @@ def getItems(node):
 
         item = Item()
         item.name = itemNode.attrib["name"]
-        item.description = itemNode.find("Description").text
+        item.description = itemNode.find("Description").text.strip()
         item.canPickup = itemNode.attrib["canPickup"].lower() == "true"
         # onPickupFail and is optional. If they aren't specified a generic message will be displayed.
         if(itemNode.find("OnPickupFail") != None):
-            item.onPickupFail = itemNode.find("OnPickupFail").text
+            item.onPickupFail = itemNode.find("OnPickupFail").text.strip()
         if(itemNode.find("RoomDescriptionAddition") != None):
-            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text
+            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text.strip()
         if(itemNode.find("DropDescriptionAddition") != None):
-            item.dropDescriptionAddition = itemNode.find("DropDescriptionAddition").text
+            item.dropDescriptionAddition = itemNode.find("DropDescriptionAddition").text.strip()
 
         items[item.name] = item
     return items

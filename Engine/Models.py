@@ -13,6 +13,22 @@ class Room():
         self.items = items
         self.aliases = aliases
         self.actions = actions
+
+    def getDescriptionList(self):
+        ret = [self.description]
+        ret.append(" ") # newline
+        # add initial description changes for objects
+        # that haven't been dropped
+        for itemName in self.items:
+            # add initial description changes for objects
+            # that haven't been dropped
+            if(not self.items[itemName].hasBeenDropped and self.items[itemName].roomDescriptionAddition != ""):
+                ret.append(self.items[itemName].roomDescriptionAddition)
+            # add description changes for dropped objects
+            elif(self.items[itemName].dropDescriptionAddition != ""):
+                ret.append(self.items[itemName].dropDescriptionAddition)
+
+        return ret
     
     def getDescription(self):
         ret = self.description
@@ -25,10 +41,8 @@ class Room():
             if(not self.items[itemName].hasBeenDropped and self.items[itemName].roomDescriptionAddition != ""):
                 ret += os.linesep + self.items[itemName].roomDescriptionAddition
             # add description changes for dropped objects
-            if(self.items[itemName].dropDescriptionAddition != ""):
+            elif(self.items[itemName].dropDescriptionAddition != ""):
                 ret += os.linesep + self.items[itemName].dropDescriptionAddition
-            else:
-                print(itemName + " has no drop description addition")
 
         return ret
         
