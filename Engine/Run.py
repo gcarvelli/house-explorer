@@ -40,7 +40,9 @@ def runEngine():
             else:
                 wrap("There isn't one of those around right now.")
         elif(keyword == "take"):
-            if(object in currentRoom.items):
+            if(object == ""):
+                wrap("Take what?")
+            elif(object in currentRoom.items):
                 if(currentRoom.items[object].canPickup):
                     player.items[object] = currentRoom.items[object]
                     del currentRoom.items[object]
@@ -52,6 +54,16 @@ def runEngine():
                         wrap("That cannot be picked up.")
             else:
                 wrap("There isn't one of those around right now.")
+        elif(keyword == "drop"):
+            if(object == ""):
+                wrap("Drop what?")
+            elif(object in player.items):
+                player.items[object].hasBeenDropped = True
+                currentRoom.items[object] = player.items[object]
+                del player.items[object]
+                wrap(object + " dropped.")
+            else:
+                wrap("You don't have a " + object + ".")
         elif(action in currentRoom.actions):
             actionObj = currentRoom.actions[action]
             actionObj.execute(player, currentRoom, roomDict)

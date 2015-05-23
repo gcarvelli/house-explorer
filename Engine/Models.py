@@ -17,21 +17,33 @@ class Room():
     def getDescription(self):
         ret = self.description
         ret += os.linesep
+        # add initial description changes for objects
+        # that haven't been dropped
         for itemName in self.items:
-            if(self.items[itemName].roomDescriptionAddition != ""):
+            # add initial description changes for objects
+            # that haven't been dropped
+            if(not self.items[itemName].hasBeenDropped and self.items[itemName].roomDescriptionAddition != ""):
                 ret += os.linesep + self.items[itemName].roomDescriptionAddition
+            # add description changes for dropped objects
+            if(self.items[itemName].dropDescriptionAddition != ""):
+                ret += os.linesep + self.items[itemName].dropDescriptionAddition
+            else:
+                print(itemName + " has no drop description addition")
+
         return ret
         
 class Item():
     
-    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition', 'aliases')
+    __slots__ = ('name', 'description', 'canPickup', 'onPickupFail', 'roomDescriptionAddition', 'dropDescriptionAddition','hasBeenDropped','aliases')
     
-    def __init__(self, name="", description="", canPickup=False, onPickupFail="", roomDescriptionAddition=""):
+    def __init__(self, name="", description="", canPickup=False, onPickupFail="", roomDescriptionAddition="", dropDescriptionAddition=""):
         self.name = name
         self.description = description
         self.canPickup = canPickup
         self.onPickupFail = onPickupFail
         self.roomDescriptionAddition = roomDescriptionAddition
+        self.dropDescriptionAddition = dropDescriptionAddition
+        self.hasBeenDropped = False
 
 class Player():
     __slots__ = ('name','items')

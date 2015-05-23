@@ -154,7 +154,10 @@ def getItems(node):
         if(itemNode.find("OnPickupFail") != None):
             item.onPickupFail = itemNode.find("OnPickupFail").text
         if(itemNode.find("RoomDescriptionAddition") != None):
-            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text               
+            item.roomDescriptionAddition = itemNode.find("RoomDescriptionAddition").text
+        if(itemNode.find("DropDescriptionAddition") != None):
+            item.dropDescriptionAddition = itemNode.find("DropDescriptionAddition").text
+
         items[item.name] = item
     return items
 

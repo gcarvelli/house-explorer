@@ -1,6 +1,9 @@
 <Items>
     <Item name="lockpick" id="lockpick" canPickup="true">
         <Description>This is a standard lockpick.</Description>
+        <DropDescriptionAddition>
+            A lockpick is on the ground.
+        </DropDescriptionAddition>
     </Item>
     <Item name="house" id="house_far" canPickup="false">
         <Description>The house has brick walls with white sidings. The plants are thriving and the windows clean, but there is no sign of anyone living here.</Description>
