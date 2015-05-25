@@ -11,6 +11,8 @@ aliases = None
 itemData = None
 keywords = {}
 
+
+
 #################################
 # XML Loading
 #################################
@@ -22,8 +24,6 @@ def loadGameDataFile(file):
     global gameData
     gameData = tree.getroot()
     
-loadGameDataFile("gamedata.xml")
-    
 """
 Loads in the program's aliases (keywords).
 """
@@ -31,8 +31,6 @@ def loadAliasFile(file):
     tree = ET.parse(file)
     global aliases
     aliases = tree.getroot()
-    
-loadAliasFile("aliases.xml")
 
 """
 Loads in any items defined in the optional items.xml.
@@ -41,8 +39,6 @@ def loadItemsFile(file):
     tree = ET.parse(file)
     global itemData
     itemData = tree.getroot()
-
-loadItemsFile("items.xml")
 
 #################################
 # Map
@@ -183,8 +179,6 @@ def getStartingRoom():
 # Keywords
 #################################
 
-keywords = {}
-
 """
 Returns a dict of each predicate mapped to its keyword.
 """
@@ -195,8 +189,6 @@ def loadKeywords():
         lst = alias.text.split(',')
         for predicate in lst:
             keywords[predicate] = keyword
-
-loadKeywords()
 
 """
 Returns the predicate of the action.
@@ -231,4 +223,11 @@ def removePredicate(action):
     predicate = getPredicate(action)
     return action[len(predicate):].strip()
 
+def parse(config_file):
+    loadGameDataFile("gamedata.xml")
+    loadAliasFile("aliases.xml")
+    loadItemsFile("items.xml")
 
+    loadKeywords()
+
+parse("config.txt")
