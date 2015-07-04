@@ -8,15 +8,19 @@ if(sys.hexversion < 0x03000000):
 	print("House Explorer requires Python 3.0 or greater.")
 	sys.exit(1)
 
-sys.path.append(os.getcwd())
-
 if(__name__ == "__main__"):
-    
+
+    files = {}
+    files["aliases"] = ".config/aliases.xml"
+    files["items"] = ".config/items.xml"
+
     # if the user specified a gamedata file, load it up
     if(len(sys.argv) > 1):
-        Parser.loadGameDataFile(sys.argv[1])
+        files["gameData"] = sys.argv[1]
     else:
-        Parser.loadGameDataFile("gamedata.xml")
+        files["gameData"] = ".config/gamedata.xml"
+
+    Parser.parse(**files)
         
     # start game loop
     runEngine()

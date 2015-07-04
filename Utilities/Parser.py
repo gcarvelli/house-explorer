@@ -223,11 +223,12 @@ def removePredicate(action):
     predicate = getPredicate(action)
     return action[len(predicate):].strip()
 
-def parse(config_file):
-    loadGameDataFile("gamedata.xml")
-    loadAliasFile("aliases.xml")
-    loadItemsFile("items.xml")
+"""
+Parses the provided files.
+"""
+def parse(gameData = "", aliases = "", items = ""):
+    loadGameDataFile(gameData)
+    loadAliasFile(aliases)
+    loadItemsFile(items)
 
     loadKeywords()
-
-parse("config.txt")
