@@ -19,12 +19,14 @@ if(__name__ == "__main__"):
     # put together the config for the engine
     config = {}
 
+    parser = XMLParser()
+
     # Aliases
-    commandParser = CommandParser(Parser.parseAliases(aliasFile))
+    commandParser = CommandParser(parser.parseAliases(aliasFile))
     config["commandParser"] = commandParser
 
     # GameData / Items
-    config["gameDataObj"] = XMLParser(gameDataFile, itemsFile).parseGameData()
+    config["gameDataObj"] = parser.parseGameData(gameDataFile, itemsFile)
         
     # start game loop
     runEngine(**config)

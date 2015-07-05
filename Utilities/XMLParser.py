@@ -5,14 +5,13 @@ from Engine.GameData import GameData
 
 class XMLParser:
 
-    def __init__(self, gameDataFile, itemFile):
+    def parseGameData(self, gameDataFile, itemFile):
         self.gameDataFile = gameDataFile
         self.root = ET.parse(gameDataFile).getroot()
 
         self.itemFile = itemFile
         self.itemRoot = ET.parse(itemFile).getroot()
 
-    def parseGameData(self):
         gameData = GameData()
 
         gameData.programName = self.root[0].text
@@ -119,3 +118,9 @@ class XMLParser:
         for aliasNode in node.findall("Alias"):
             aliases[aliasNode.attrib["keyword"]] = aliasNode.text
         return aliases
+
+    def parseAliases(self, aliasFile):
+        self.aliasFile = aliasFile
+        self.aliasRoot = ET.parse(aliasFile).getroot()
+
+        return self._getAliases(self.aliasRoot)
