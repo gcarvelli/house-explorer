@@ -17,6 +17,11 @@ keywords = {}
 # XML Loading
 #################################
 """
+Loads in an xml file.
+"""
+def loadXML(file):
+    return ET.parse(file).getroot()
+"""
 Loads in the game's configuration.
 """
 def loadGameDataFile(file):
@@ -182,53 +187,35 @@ def getStartingRoom():
 """
 Returns a dict of each predicate mapped to its keyword.
 """
-def loadKeywords():
-    global keywords
-    for alias in aliases.findall("Alias"):
+def getAliases(root):
+
+    keywords = {}
+    for alias in root.findall("Alias"):
         keyword = alias.attrib["keyword"]
         lst = alias.text.split(',')
         for predicate in lst:
             keywords[predicate] = keyword
 
-"""
-Returns the predicate of the action.
-"""
-def getPredicate(action):
-    # build a list of candidates and pick the longest one
-    candidates = []
-    for candidate in keywords:
-        if(action.startswith(candidate)):
-            candidates.append(candidate)
-    
-    longestCandidate = ""
-    for candidate in candidates:
-        if(len(candidate) > len(longestCandidate)):
-            longestCandidate = candidate
-    
-    return longestCandidate
+    return keywords
 
 """
-Returns the keyword that the action's actual predicate was mapped to.
+Parses gameData file.
 """
-def getKeyword(action):
-    if(getPredicate(action) in keywords):
-        return keywords[getPredicate(action)]
-    else:
-        return ""
+def parseGameData(file):
+    #root = loadXML(file)
+    # TODO uncouple gamedata
+    loadGameDataFile(file)
 
 """
-Returns the action with the predicate removed.
+Parses Alias file.
 """
-def removePredicate(action):
-    predicate = getPredicate(action)
-    return action[len(predicate):].strip()
+def parseAliases(file):
+    root = loadXML(file)
+    return getAliases(root)
 
 """
-Parses the provided files.
+Parses items file.
 """
-def parse(gameData = "", aliases = "", items = ""):
-    loadGameDataFile(gameData)
-    loadAliasFile(aliases)
-    loadItemsFile(items)
-
-    loadKeywords()
+def parseItems(file):
+    root = loadXML(file)
+    return getItems(root)

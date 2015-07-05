@@ -1,6 +1,8 @@
 import sys
 import os
 from Utilities import Parser
+from Utilities.CommandParser import CommandParser
+from Utilities.XMLParser import XMLParser
 from Engine.Run import runEngine
 
 # Do a python version check (greater than 3.0.0)
@@ -10,17 +12,19 @@ if(sys.hexversion < 0x03000000):
 
 if(__name__ == "__main__"):
 
-    files = {}
-    files["aliases"] = ".config/aliases.xml"
-    files["items"] = ".config/items.xml"
+    aliasFile = ".config/aliases.xml"
+    itemsFile = ".config/items.xml"
+    gameDataFile = ".config/gameData.xml"
 
-    # if the user specified a gamedata file, load it up
-    if(len(sys.argv) > 1):
-        files["gameData"] = sys.argv[1]
-    else:
-        files["gameData"] = ".config/gamedata.xml"
+    # put together the config for the engine
+    config = {}
 
-    Parser.parse(**files)
+    # Aliases
+    commandParser = CommandParser(Parser.parseAliases(aliasFile))
+    config["commandParser"] = commandParser
+
+    # GameData / Items
+    config["gameDataObj"] = XMLParser(gameDataFile, itemsFile).parseGameData()
         
     # start game loop
-    runEngine()
+    runEngine(**config)

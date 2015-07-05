@@ -2,17 +2,18 @@ import os
 import platform
 from Engine.Models import *
 from Utilities.TextControl import wrap
-from Utilities import Parser
 
-def runEngine():
+def runEngine(commandParser, gameDataObj):
+    global gameData
+    gameData = gameDataObj
     # get the map
-    roomDict = Parser.getRooms()
+    roomDict = gameData.rooms
     global currentRoom
-    currentRoom = roomDict[Parser.getStartingRoom()]
+    currentRoom = roomDict[gameData.startRoom]
     
     # get the player
     global player
-    player = Parser.getPlayer()
+    player = gameData.player
     
     lookAround()
     
@@ -23,9 +24,9 @@ def runEngine():
         if(action in currentRoom.aliases):
             action = currentRoom.aliases[action]
         
-        predicate = Parser.getPredicate(action)
-        object = Parser.removePredicate(action)
-        keyword = Parser.getKeyword(action)
+        predicate = commandParser.getPredicate(action, currentRoom)
+        object = commandParser.removePredicate(action, predicate)
+        keyword = commandParser.getKeyword(predicate, currentRoom)
         
         if(len(action) == 0):
             continue
@@ -125,6 +126,7 @@ def runEngine():
 def lookAround():
     clear()
     print('\n')
+    global currentRoom
     wrap(currentRoom.name)
     # need to account for newlines so that wrap()
     # doesn't break lines right in the middle
@@ -141,5 +143,7 @@ def clear():
         os.system('cls')
     else:
         os.system('clear')
-    wrap(Parser.getProgramName())
-    wrap('Version ' + Parser.getProgramVersion())
+
+    global gameData
+    wrap(gameData.programName)
+    wrap('Version ' + gameData.programVersion)
