@@ -15,7 +15,6 @@ class CommandParser:
                 candidates.append(candidate)
 
         for candidate in room.moves:
-            print(candidate)
             if(action.startswith(candidate)):
                 candidates.append(candidate)
         
