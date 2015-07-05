@@ -30,7 +30,7 @@ class CommandParser:
     """
     def getKeyword(self, predicate, room):
         if(predicate in self.keywords):
-            return self.keywords[self.getPredicate(action, room)]
+            return self.keywords[self.getPredicate(predicate, room)]
         elif(predicate in room.moves):
             return "move"
         else:
