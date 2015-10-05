@@ -10,7 +10,6 @@ def runEngine():
     currentRoom = roomDict[Parser.getStartingRoom()]
     
     # get the player
-    global player
     player = Parser.getPlayer()
     
     lookAround(currentRoom)
