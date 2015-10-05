@@ -15,7 +15,7 @@ def runEngine():
     lookAround(currentRoom)
     
     while(True):
-        action = input().strip(' ')
+        action = input().strip()
         
         # catch aliases before parsing
         if(action in currentRoom.aliases):
