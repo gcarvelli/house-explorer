@@ -7,14 +7,13 @@ from Utilities import Parser
 def runEngine():
     # get the map
     roomDict = Parser.getRooms()
-    global currentRoom
     currentRoom = roomDict[Parser.getStartingRoom()]
     
     # get the player
     global player
     player = Parser.getPlayer()
     
-    lookAround()
+    lookAround(currentRoom)
     
     while(True):
         action = input().strip(' ')
@@ -31,7 +30,7 @@ def runEngine():
             continue
         
         elif(keyword == "look"):
-            lookAround()
+            lookAround(currentRoom)
         elif(keyword == "look at"):
             if(object in currentRoom.items):
                 wrap(currentRoom.items[object].description)
@@ -110,7 +109,7 @@ def runEngine():
         elif(keyword == "move"):
             if(predicate in currentRoom.moves):
                 currentRoom = roomDict[currentRoom.moves[predicate]]
-                lookAround()
+                lookAround(currentRoom)
             else:
                 wrap("You can't go that way.")
         elif(keyword == "quit"):
@@ -122,8 +121,10 @@ def runEngine():
         else:
             wrap("Command not recognized.")
 
-def lookAround():
+def lookAround(currentRoom):
     clear()
+    wrap(Parser.getProgramName())
+    wrap('Version ' + Parser.getProgramVersion())
     print('\n')
     wrap(currentRoom.name)
     # need to account for newlines so that wrap()
@@ -141,5 +142,3 @@ def clear():
         os.system('cls')
     else:
         os.system('clear')
-    wrap(Parser.getProgramName())
-    wrap('Version ' + Parser.getProgramVersion())
